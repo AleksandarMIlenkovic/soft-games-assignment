@@ -8,6 +8,7 @@ import { GameManager } from "../GameManager";
 export class MagicWordsScene extends BaseScene {
   private title: Text;
   private backButton: Button;
+  private fullScreenButton: Button;
   private dialogueContainer: Graphics;
   private characterNameLeft: Text;
   private characterNameRight: Text;
@@ -48,6 +49,13 @@ export class MagicWordsScene extends BaseScene {
       this.gm.changeScene(MenuScene);
     });
     this.addChild(this.backButton);
+
+    this.fullScreenButton = new Button("⛶", 50, 50);
+    this.fullScreenButton.position.set(this.DESIGN_WIDTH - 70, 20);
+    this.fullScreenButton.on("pointerup", () => {
+      this.gm.toggleFullScreen();
+    });
+    this.addChild(this.fullScreenButton);
 
     this.dialogueContainer = new Graphics();
     this.dialogueContainer.roundRect(

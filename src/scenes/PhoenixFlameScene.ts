@@ -12,6 +12,7 @@ export class PhoenixFlameScene extends BaseScene {
 
   private title: Text;
   private backButton: Button;
+  private fullScreenButton: Button;
   private particles: Particle[] = [];
   private particleTexture: Texture | null = null;
   private spawnCounter: number = 0;
@@ -55,6 +56,13 @@ export class PhoenixFlameScene extends BaseScene {
       this.gm.changeScene(MenuScene);
     });
     this.addChild(this.backButton);
+
+    this.fullScreenButton = new Button("⛶", 50, 50);
+    this.fullScreenButton.position.set(DESIGN_WIDTH - 70, 20);
+    this.fullScreenButton.on("pointerup", () => {
+      this.gm.toggleFullScreen();
+    });
+    this.addChild(this.fullScreenButton);
 
     const fireBase = new Graphics();
     fireBase.ellipse(DESIGN_WIDTH / 2, DESIGN_HEIGHT * 0.8, 100, 30);

@@ -11,12 +11,14 @@ export class GameManager {
   private resizeTimeout: number | null = null;
   private readonly RESIZE_DEBOUNCE_MS = 100;
   private boundHandleResize: () => void;
+  private boundHandleFullScreenChange: () => void;
 
   constructor() {
     this.app = new Application();
     this.sceneContainer = new Container();
     this.fpsCounter = new FPSCounter();
     this.boundHandleResize = this.handleResize.bind(this);
+    this.boundHandleFullScreenChange = this.handleFullScreenChange.bind(this);
   }
 
   public async init(): Promise<void> {
@@ -44,6 +46,24 @@ export class GameManager {
     window.addEventListener("orientationchange", this.boundHandleResize, {
       passive: true,
     });
+
+    // Add full screen change event listeners
+    document.addEventListener(
+      "fullscreenchange",
+      this.boundHandleFullScreenChange,
+    );
+    document.addEventListener(
+      "webkitfullscreenchange",
+      this.boundHandleFullScreenChange,
+    );
+    document.addEventListener(
+      "mozfullscreenchange",
+      this.boundHandleFullScreenChange,
+    );
+    document.addEventListener(
+      "MSFullscreenChange",
+      this.boundHandleFullScreenChange,
+    );
 
     this.app.ticker.add(this.update.bind(this));
 
@@ -104,6 +124,75 @@ export class GameManager {
     return window.devicePixelRatio || 1;
   }
 
+  /**
+   * Check if full screen is currently active
+   */
+  public isFullScreen(): boolean {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const doc = document as any;
+    return !!(
+      document.fullscreenElement ||
+      doc.webkitFullscreenElement ||
+      doc.mozFullScreenElement ||
+      doc.msFullscreenElement
+    );
+  }
+
+  /**
+   * Toggle full screen mode
+   */
+  public toggleFullScreen(): void {
+    if (this.isFullScreen()) {
+      this.exitFullScreen();
+    } else {
+      this.enterFullScreen();
+    }
+  }
+
+  /**
+   * Enter full screen mode
+   */
+  private enterFullScreen(): void {
+    const element = document.documentElement;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const el = element as any;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (el.webkitRequestFullscreen) {
+      el.webkitRequestFullscreen();
+    } else if (el.mozRequestFullScreen) {
+      el.mozRequestFullScreen();
+    } else if (el.msRequestFullscreen) {
+      el.msRequestFullscreen();
+    }
+  }
+
+  /**
+   * Exit full screen mode
+   */
+  private exitFullScreen(): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const doc = document as any;
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (doc.webkitExitFullscreen) {
+      doc.webkitExitFullscreen();
+    } else if (doc.mozCancelFullScreen) {
+      doc.mozCancelFullScreen();
+    } else if (doc.msExitFullscreen) {
+      doc.msExitFullscreen();
+    }
+  }
+
+  /**
+   * Handle full screen change events
+   */
+  private handleFullScreenChange(): void {
+    console.log("[GameManager] Full screen changed:", this.isFullScreen());
+    // Trigger a resize to update dimensions when entering/exiting full screen
+    this.handleResize();
+  }
+
   public destroy(): void {
     if (this.currentScene) {
       this.currentScene.onExit();
@@ -115,6 +204,24 @@ export class GameManager {
 
     window.removeEventListener("resize", this.boundHandleResize);
     window.removeEventListener("orientationchange", this.boundHandleResize);
+
+    // Remove full screen change event listeners
+    document.removeEventListener(
+      "fullscreenchange",
+      this.boundHandleFullScreenChange,
+    );
+    document.removeEventListener(
+      "webkitfullscreenchange",
+      this.boundHandleFullScreenChange,
+    );
+    document.removeEventListener(
+      "mozfullscreenchange",
+      this.boundHandleFullScreenChange,
+    );
+    document.removeEventListener(
+      "MSFullscreenChange",
+      this.boundHandleFullScreenChange,
+    );
 
     console.log("[GameManager] Destroyed");
   }

@@ -16,6 +16,7 @@ export class AceOfShadowsScene extends BaseScene {
   private destinationStack: Card[] = [];
   private title: Text;
   private backButton: Button;
+  private fullScreenButton: Button;
   private lastMoveTime: number = 0;
   private animatingCard: Card | null = null;
   private animationStartTime: number = 0;
@@ -64,6 +65,13 @@ export class AceOfShadowsScene extends BaseScene {
       this.gm.changeScene(MenuScene);
     });
     this.addChild(this.backButton);
+
+    this.fullScreenButton = new Button("⛶", 50, 50);
+    this.fullScreenButton.position.set(this.DESIGN_WIDTH - 70, 20);
+    this.fullScreenButton.on("pointerup", () => {
+      this.gm.toggleFullScreen();
+    });
+    this.addChild(this.fullScreenButton);
   }
 
   public async onEnter(): Promise<void> {

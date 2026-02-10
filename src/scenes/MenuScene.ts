@@ -9,6 +9,7 @@ import { PhoenixFlameScene } from "./PhoenixFlameScene";
 export class MenuScene extends BaseScene {
   private title: Text;
   private buttons: Button[] = [];
+  private fullScreenButton: Button;
 
   constructor(gm: GameManager) {
     super(gm);
@@ -46,6 +47,7 @@ export class MenuScene extends BaseScene {
     this.addChild(subtitle);
 
     this.createButtons();
+    this.createFullScreenButton();
   }
 
   private createButtons(): void {
@@ -87,6 +89,28 @@ export class MenuScene extends BaseScene {
     });
     this.addChild(phoenixButton);
     this.buttons.push(phoenixButton);
+  }
+
+  private createFullScreenButton(): void {
+    const buttonWidth = 50;
+    const buttonHeight = 50;
+    const padding = 20;
+
+    this.fullScreenButton = new Button("⛶", buttonWidth, buttonHeight);
+    this.fullScreenButton.position.set(
+      this.DESIGN_WIDTH - buttonWidth - padding,
+      padding,
+    );
+    this.fullScreenButton.on("pointerup", () => {
+      this.gm.toggleFullScreen();
+      this.updateFullScreenButtonText();
+    });
+    this.addChild(this.fullScreenButton);
+    this.updateFullScreenButtonText();
+  }
+
+  private updateFullScreenButtonText(): void {
+    this.fullScreenButton.setText(this.gm.isFullScreen() ? "⛶" : "⛶");
   }
 
   public onEnter(): void {
