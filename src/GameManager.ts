@@ -2,7 +2,6 @@ import { Application, Container } from "pixi.js";
 import { BaseScene } from "./scenes/BaseScene";
 import { FPSCounter } from "./FPSCounter";
 
-
 export class GameManager {
   public app: Application;
   public currentScene: BaseScene | null = null;
@@ -51,7 +50,6 @@ export class GameManager {
     console.log("[GameManager] Application initialized");
   }
 
- 
   public changeScene(sceneClass: new (gm: GameManager) => BaseScene): void {
     if (this.currentScene) {
       this.currentScene.onExit();
@@ -67,18 +65,14 @@ export class GameManager {
     console.log(`[GameManager] Changed to scene: ${sceneClass.name}`);
   }
 
- 
   private update(time: { deltaMS: number }): void {
-    // Update FPS counter
     this.fpsCounter.update(this.app.ticker.FPS);
 
-    // Update current scene
     if (this.currentScene) {
       this.currentScene.update(time.deltaMS);
     }
   }
 
- 
   private handleResize(): void {
     if (this.resizeTimeout !== null) {
       clearTimeout(this.resizeTimeout);
@@ -99,7 +93,6 @@ export class GameManager {
     }, this.RESIZE_DEBOUNCE_MS);
   }
 
- 
   public getScreenDimensions(): { width: number; height: number } {
     return {
       width: this.app.screen.width,
@@ -107,11 +100,9 @@ export class GameManager {
     };
   }
 
-
   public getDevicePixelRatio(): number {
     return window.devicePixelRatio || 1;
   }
-
 
   public destroy(): void {
     if (this.currentScene) {

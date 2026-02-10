@@ -1,4 +1,4 @@
-pixi project scaffold or assignment
+pixi project assignment
 # Soft Games Test
 1. “Ace of Shadows”
 Create 144 sprites (NOT graphic objects) that are stacked on top of each other like
@@ -23,3 +23,8 @@ Technical requirements:
 We evaluate your project structure, architecture, readability and documentation of your
 code. But as game developers we also deeply care about the creativity, visual aesthetics
 and playfulness of your solution :)
+
+
+how to run:
+npm install
+npm run dev

@@ -64,7 +64,6 @@ export class AceOfShadowsScene extends BaseScene {
       this.gm.changeScene(MenuScene);
     });
     this.addChild(this.backButton);
-
   }
 
   public async onEnter(): Promise<void> {
@@ -176,7 +175,6 @@ export class AceOfShadowsScene extends BaseScene {
         destY + this.destinationStack.length * AceOfShadowsScene.STACK_OFFSET_Y,
     };
 
-    // Set initial position
     this.animatingCard.position.set(
       this.animationStartPos.x,
       this.animationStartPos.y,

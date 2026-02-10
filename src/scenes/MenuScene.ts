@@ -6,9 +6,6 @@ import { AceOfShadowsScene } from "./AceOfShadowsScene";
 import { MagicWordsScene } from "./MagicWordsScene";
 import { PhoenixFlameScene } from "./PhoenixFlameScene";
 
-/**
- * MenuScene - Main menu for navigating between game scenes
- */
 export class MenuScene extends BaseScene {
   private title: Text;
   private buttons: Button[] = [];
@@ -16,13 +13,11 @@ export class MenuScene extends BaseScene {
   constructor(gm: GameManager) {
     super(gm);
 
-    // Create background
     const background = new Graphics();
     background.rect(0, 0, this.DESIGN_WIDTH, this.DESIGN_HEIGHT);
     background.fill({ color: 0x1a1a2e });
     this.addChildAt(background, 0);
 
-    // Create title
     this.title = new Text({
       text: "SOFT GAMES TEST",
       style: {
@@ -37,7 +32,6 @@ export class MenuScene extends BaseScene {
     this.title.position.set(this.DESIGN_WIDTH / 2, 150);
     this.addChild(this.title);
 
-    // Create subtitle
     const subtitle = new Text({
       text: "Select a scene to play",
       style: {
@@ -51,7 +45,6 @@ export class MenuScene extends BaseScene {
     subtitle.position.set(this.DESIGN_WIDTH / 2, 220);
     this.addChild(subtitle);
 
-    // Create buttons
     this.createButtons();
   }
 
@@ -61,7 +54,6 @@ export class MenuScene extends BaseScene {
     const startY = 300;
     const spacing = 80;
 
-    // Ace of Shadows button
     const aceButton = new Button("Ace of Shadows", buttonWidth, buttonHeight);
     aceButton.position.set((this.DESIGN_WIDTH - buttonWidth) / 2, startY);
     aceButton.on("pointerup", () => {
@@ -70,7 +62,6 @@ export class MenuScene extends BaseScene {
     this.addChild(aceButton);
     this.buttons.push(aceButton);
 
-    // Magic Words button
     const magicButton = new Button("Magic Words", buttonWidth, buttonHeight);
     magicButton.position.set(
       (this.DESIGN_WIDTH - buttonWidth) / 2,
@@ -82,7 +73,6 @@ export class MenuScene extends BaseScene {
     this.addChild(magicButton);
     this.buttons.push(magicButton);
 
-    // Phoenix Flame button
     const phoenixButton = new Button(
       "Phoenix Flame",
       buttonWidth,

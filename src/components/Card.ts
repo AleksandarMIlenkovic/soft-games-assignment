@@ -25,7 +25,6 @@ export class Card extends Sprite {
     this.eventMode = "static";
   }
 
-
   private static createDefaultBackTexture(
     width: number,
     height: number,
@@ -94,7 +93,6 @@ export class Card extends Sprite {
     this.isShowingBack = false;
     this.texture = this.frontTexture;
   }
-
 
   public isBack(): boolean {
     return this.isShowingBack;
