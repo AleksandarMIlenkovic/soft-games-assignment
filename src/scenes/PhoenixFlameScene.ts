@@ -74,7 +74,9 @@ export class PhoenixFlameScene extends BaseScene {
     super.onEnter();
 
     try {
-      this.particleTexture = await Assets.load("/assets/bunny.png");
+      this.particleTexture = await Assets.load(
+        "/soft-games-assignment/assets/bunny.png",
+      );
       console.log("[PhoenixFlameScene] Particle texture loaded");
     } catch (error) {
       console.error(

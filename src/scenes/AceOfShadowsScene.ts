@@ -77,7 +77,9 @@ export class AceOfShadowsScene extends BaseScene {
   public async onEnter(): Promise<void> {
     super.onEnter();
 
-    const texture = await Assets.load("/assets/cards.png");
+    const texture = await Assets.load(
+      "/soft-games-assignment/assets/cards.png",
+    );
 
     const spritesheet = Card.createSpritesheet(texture, 46, 72, 13, 4);
 
