@@ -143,7 +143,7 @@ export class MagicWordsScene extends BaseScene {
       );
       const data = await response.json();
       console.log("!!!dialog", data.dialogue);
-      data.dialogue.forEach((item: any) => {
+      data.dialogue.forEach((item: { name: string; text: string }) => {
         if (item.name && item.text) {
           this.dialogues.push({
             character: item.name,
@@ -153,7 +153,7 @@ export class MagicWordsScene extends BaseScene {
           console.warn("item:", item);
         }
       });
-      data.emojies.forEach((item: any) => {
+      data.emojies.forEach((item: { name: string; url: string }) => {
         if (item.name && item.url) {
           this.emojies.push({
             name: item.name,
@@ -163,16 +163,18 @@ export class MagicWordsScene extends BaseScene {
           console.warn("emoji item no data", item);
         }
       });
-      data.avatars.forEach((item: any) => {
-        if (item.name && item.url && item.position) {
-          this.avatars[item.name] = {
-            url: item.url,
-            position: item.position,
-          };
-        } else {
-          console.warn("avatar item:", item);
-        }
-      });
+      data.avatars.forEach(
+        (item: { name: string; url: string; position: string }) => {
+          if (item.name && item.url && item.position) {
+            this.avatars[item.name] = {
+              url: item.url,
+              position: item.position,
+            };
+          } else {
+            console.warn("avatar item:", item);
+          }
+        },
+      );
 
       await this.preloadEmojiTextures();
 

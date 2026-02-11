@@ -102,7 +102,7 @@ export class PhoenixFlameScene extends BaseScene {
     }
   }
 
-  public update(delta: number): void {
+  public update(_delta: number): void {
     this.spawnCounter++;
     if (this.spawnCounter >= PhoenixFlameScene.SPAWN_INTERVAL) {
       this.spawnParticle();

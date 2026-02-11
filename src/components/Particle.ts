@@ -85,9 +85,9 @@ export class Particle extends Sprite {
    * Update color based on life ratio
    */
   private updateColor(lifeRatio: number): void {
-    let r = 255;
+    const r = 255;
     let g = 0;
-    let b = 0;
+    const b = 0;
 
     if (lifeRatio > 0.7) {
       g = Math.floor(200 * ((lifeRatio - 0.7) / 0.3));

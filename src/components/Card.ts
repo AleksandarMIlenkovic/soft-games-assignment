@@ -1,6 +1,5 @@
 import { Sprite, Spritesheet, Texture } from "pixi.js";
 
-
 export class Card extends Sprite {
   private frontTexture: Texture;
   private backTexture: Texture;

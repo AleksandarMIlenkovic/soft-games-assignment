@@ -9,7 +9,7 @@ import { PhoenixFlameScene } from "./PhoenixFlameScene";
 export class MenuScene extends BaseScene {
   private title: Text;
   private buttons: Button[] = [];
-  private fullScreenButton: Button;
+  private fullScreenButton!: Button;
 
   constructor(gm: GameManager) {
     super(gm);

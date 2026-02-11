@@ -1,7 +1,6 @@
 import { GameManager } from "./GameManager";
 import { MenuScene } from "./scenes/MenuScene";
 
-
 (async () => {
   const gameManager = new GameManager();
 
